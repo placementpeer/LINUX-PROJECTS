@@ -1,0 +1,17 @@
+import cv2, matplotlib.pyplot as plt
+from google.colab import files
+
+f = list(files.upload().keys())[0]
+img = cv2.cvtColor(cv2.imread(f), cv2.COLOR_BGR2RGB)
+
+imgs = [img,
+        cv2.GaussianBlur(img,(9,9),0),
+        cv2.medianBlur(img,5),
+        cv2.bilateralFilter(img,9,75,75)]
+
+titles = ["Original","Gaussian","Median","Bilateral"]
+
+for i in range(4):
+    plt.subplot(2,2,i+1)
+    plt.imshow(imgs[i]); plt.title(titles[i]); plt.axis("off")
+plt.show()
